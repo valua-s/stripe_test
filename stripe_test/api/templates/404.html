@@ -1,0 +1,65 @@
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Объект не найден</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1 class="not-found-title">Объект не найден :(</h1>
+  <p class="not-found-message">К сожалению, запрашиваемая страница не существует.</p>
+  <div class="not-found-container">
+    <div class="cat-container">
+      <svg class="sad-cat" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- Cat body -->
+        <ellipse cx="150" cy="170" rx="120" ry="100" fill="#E67E22" />
+        
+        <!-- Cat face -->
+        <circle cx="150" cy="140" r="80" fill="#E67E22" />
+        
+        <!-- Cat ears -->
+        <polygon points="100,80 80,30 130,70" fill="#E67E22" />
+        <polygon points="200,80 220,30 170,70" fill="#E67E22" />
+        <polygon points="100,82 80,35 130,72" fill="#D35400" class="ear-inner" />
+        <polygon points="200,82 220,35 170,72" fill="#D35400" class="ear-inner" />
+        
+        <!-- Cat eyes -->
+        <g class="eyes">
+          <ellipse cx="120" cy="120" rx="15" ry="20" fill="white" />
+          <ellipse cx="180" cy="120" rx="15" ry="20" fill="white" />
+          <ellipse class="pupils" cx="120" cy="125" rx="7" ry="10" fill="#2C3E50" />
+          <ellipse class="pupils" cx="180" cy="125" rx="7" ry="10" fill="#2C3E50" />
+          <ellipse cx="125" cy="115" rx="5" ry="5" fill="white" class="eye-highlight" />
+          <ellipse cx="185" cy="115" rx="5" ry="5" fill="white" class="eye-highlight" />
+          
+          <!-- Tears -->
+          <path d="M115,145 Q115,155 110,160" stroke="#3498DB" stroke-width="3" fill="none" class="tear" />
+          <path d="M185,145 Q185,155 190,160" stroke="#3498DB" stroke-width="3" fill="none" class="tear" />
+          <ellipse cx="110" cy="162" rx="3" ry="4" fill="#3498DB" class="tear-drop" />
+          <ellipse cx="190" cy="162" rx="3" ry="4" fill="#3498DB" class="tear-drop" />
+        </g>
+        
+        <!-- Cat nose and mouth -->
+        <path d="M150,145 L140,135 H160 L150,145 Z" fill="#D35400" />
+        <path d="M150,145 Q150,165 140,160 M150,145 Q150,165 160,160" fill="none" stroke="#D35400" stroke-width="3" class="mouth" />
+        
+        <!-- Cat whiskers -->
+        <line x1="100" y1="145" x2="60" y2="135" stroke="#D35400" stroke-width="2" />
+        <line x1="100" y1="150" x2="55" y2="150" stroke="#D35400" stroke-width="2" />
+        <line x1="100" y1="155" x2="60" y2="165" stroke="#D35400" stroke-width="2" />
+        
+        <line x1="200" y1="145" x2="240" y2="135" stroke="#D35400" stroke-width="2" />
+        <line x1="200" y1="150" x2="245" y2="150" stroke="#D35400" stroke-width="2" />
+        <line x1="200" y1="155" x2="240" y2="165" stroke="#D35400" stroke-width="2" />
+        
+        <!-- Cat paws -->
+        <ellipse cx="100" cy="250" rx="30" ry="15" fill="#E67E22" class="paw" />
+        <ellipse cx="200" cy="250" rx="30" ry="15" fill="#E67E22" class="paw" />
+      </svg>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

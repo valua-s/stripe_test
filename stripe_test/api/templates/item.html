@@ -1,0 +1,28 @@
+
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Buy {{ item.name }}</title>
+  </head>
+  <body>
+    {% csrf_token %}
+    <h1>{{ item.name }}</h1>
+    <p>{{ item.description }}</p>
+    <p>{{ item.price }}</p>
+    <button id="buy-button">Buy</button>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript">
+      var id = window.location.href.split('/').pop();
+      var url = window.location.origin + '/buy/' + id
+      var stripe = Stripe('pk_test_51QwH9DQsMmzaofB78KTbyZGJTloLnQd6nEGa2O7Cjys9yG1zdus6EJ4SJ6t3JDohLplUmV04pC5D0twX2FeWRPZ200ab6gp6IF');
+      var buyButton = document.getElementById("buy-button");
+      buyButton.addEventListener('click', function() {
+        // Create a new Checkout Session using the server-side endpoint 
+        // Redirect to Stripe Session Checkout
+        fetch(url, {method: 'GET'})
+        .then(response => response.json())
+        .then(session => stripe.redirectToCheckout({ sessionId: session.id }))
+      });
+    </script>
+  </body>
+</html>
