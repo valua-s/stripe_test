@@ -1,15 +1,15 @@
 volumes:
     stripe_test_static:
+    # stripe_test_images:
 
 services:
     app:
         container_name: app
         image: valuas/stripe_test
         env_file: .env
-        ports:
-            - "8000:8000"
         volumes:
             - stripe_test_static:/app/static
+            # - stripe_test_images:/app/static
     nginx:
         container_name: proxy
         image: valuas/proxy
@@ -18,4 +18,6 @@ services:
             - "80:80"
         volumes:
             - stripe_test_static:/app/static
+            # - stripe_test_images:/app/static
+
     

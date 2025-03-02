@@ -83,3 +83,48 @@ def get_order(request, order_unicode: str) -> HttpResponseRedirect:
     except Exception:
         return HttpResponse(content='Invalid data for session', status=400)
     return redirect(session.url, code=303)
+
+
+def payment_window(request, order_unicode: str):
+
+    order: list[Item] = Order.objects.filter(unique_code=order_unicode)
+    
+    if not order:
+        return render(request, "404.html", status=404)
+    order: Order = order[0]
+    count_items = [item.itemorders.get(order=order).count for item in order.items.all()]
+    items_counts = zip(order.items.all(), count_items)
+    amount = order.amount
+    
+    if order.tax and order.tax.inclusive is False:
+        amount = amount * (1 + order.tax.inclusive)
+    
+    if order.discount:
+        amount = amount - order.discount.amount_off
+    
+    return render(
+        request,
+        'checkout.html',
+        context={
+            'items_counts': items_counts,
+            'order': order,
+            'amount': amount,
+        }
+    )
+
+
+def create_intent(request, order_unicode: str):
+
+    order: list[Order] | None = Order.objects.filter(unique_code=order_unicode)
+
+    if not order:
+        return render(request, "404.html", status=404)
+
+    order: Order = order[0]
+
+    pay_intent = stripe.PaymentIntent.create(
+        amount=order.amount,
+        currency="usd",
+        automatic_payment_methods={"enabled": True},
+        )
+    return JsonResponse({'clientSecret': pay_intent.client_secret})

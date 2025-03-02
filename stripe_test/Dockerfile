@@ -21,6 +21,7 @@ COPY --from=builder /usr/local/bin/ /usr/local/bin
 
 WORKDIR /app
 
+COPY ./static/. /app/static
 COPY --chown=appuser:appuser . .
 
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -31,7 +32,5 @@ USER appuser
 EXPOSE 8000 
 
 RUN python manage.py collectstatic --noinput
-
-COPY /app/static/.
 
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "stripe_test.wsgi:application"]

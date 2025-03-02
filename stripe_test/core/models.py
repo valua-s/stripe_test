@@ -80,6 +80,7 @@ class Order(models.Model):
     items = models.ManyToManyField(to=Item, through='itemorder', verbose_name='Товары')
     tax: Tax = models.ForeignKey(Tax, verbose_name='Размер налога', on_delete=models.SET_NULL, null=True, blank=True)
     discount: Discount = models.ForeignKey(Discount, verbose_name='Размер скидки', on_delete=models.SET_NULL, null=True, blank=True)
+    amount: int = models.PositiveIntegerField(verbose_name='Сумма заказа', null=True, blank=True)
 
     def __str__(self):
         return f'Заказ {self.pk}'
@@ -87,6 +88,16 @@ class Order(models.Model):
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
+    
+    def save(self, *args, **kwargs):
+        
+        price: list[int] = self.items.all().values_list('price', flat=True)
+        count: list[int] = [item.itemorders.get(order=self).count for item in self.items.all()]
+
+        amount: int = sum([price[index] * count[index] for index in range(len(price))])
+        self.amount = amount
+        
+        super(Order, self).save(*args, **kwargs)
 
 
 class ItemOrder(models.Model):

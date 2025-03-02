@@ -42,8 +42,8 @@ class ItemOrderInline(admin.StackedInline):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     inlines = [ItemOrderInline]
-    readonly_fields = ('unique_code',)
-    list_display = ('id', 'unique_code', 'tax', 'discount')
+    readonly_fields = ('unique_code', 'amount')
+    list_display = ('id', 'unique_code', 'tax', 'discount', 'amount')
     list_filter = ('tax', 'discount')
     raw_id_fields = ('items',)
 

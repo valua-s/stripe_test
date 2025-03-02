@@ -11,3 +11,4 @@ def create_username_and_password(sender, instance: Order, created, **kwargs):
     if created:
         instance.unique_code = uuid.uuid4()
         instance.save()
+        
